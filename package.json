@@ -1,0 +1,25 @@
+{
+  "name": "HtmlTailwind",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "jest --coverage --watchAll",
+    "build": "postcss css/tailwind.css -o public/build/tailwind.css",
+    "coverage": "NODE_ENV=development nyc --reporter=text npm test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^9.8.0",
+    "postcss-cli": "^7.1.1",
+    "tailwindcss": "^1.4.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "jest": "^26.0.1",
+    "nyc": "^15.1.0"
+  }
+}
