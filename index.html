@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Web Development Portfolio & Service" />
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css" async/>
     <!-- Custom Scripts -->
     <script src="./main.js" type="text/javascript" async></script>
 
@@ -21,82 +21,91 @@
 
     <div class="w-screen h-screen p-0 m-0 root">
       <nav
-        class="flex justify-between pl-6 mb-1 text-center bg-gray-500 bg-opacity-25 sectionContainer nav_container"
+        class="sticky flex justify-between pl-6 mb-1 text-center bg-gray-500 bg-opacity-25 sectionContainer nav_container"
         data-testid="navContainer"
       >
         <a
           role="button"
-          class="flex self-center px-4 py-2 text-2xl font-medium border border-gray-600 border-solid shadow-md hover:shadow-xl brand_name"
-          data-testid="brandName"
+          class="flex self-center px-4 py-2 text-2xl font-medium transition-shadow duration-300 hover:shadow-xl "
+          id="brand_name" data-testid="brandName"
         >
           BrandName
         </a>
         <div class="text-2xl nav_links" data-testid="navLinks">
           <ul
-            class="items-center hidden py-4 mx-2 font-semibold md:flex link_list"
+            class="items-center hidden py-4 mx-2 font-semibold md:flex "
+            id="link_list"
           >
-            <li class="px-4 py-2 mx-2 my-1 text-sm shadow-lg homeLink">
-              <a href="#">
+            <li
+              class="px-4 py-2 mx-2 my-1 text-sm transition-shadow duration-300 shadow hover:shadow-lg homeLink"
+            >
+              <a onclick="handleClick()">
                 Home
               </a>
             </li>
 
-            <li class="px-4 py-2 mx-2 my-1 text-sm shadow-lg githubLink">
+            <li
+              class="px-4 py-2 mx-2 my-1 text-sm transition-shadow duration-300 shadow hover:shadow-lg githubLink"
+            >
               <a href="#">
                 Github
               </a>
             </li>
 
-            <li class="px-4 py-2 mx-2 my-1 text-sm shadow-lg projectsLink">
+            <li
+              class="px-4 py-2 mx-2 my-1 text-sm transition-shadow duration-300 shadow hover:shadow-lg projectsLink"
+            >
               <a href="#">
                 Projects
               </a>
             </li>
 
-            <li class="px-4 py-2 mx-2 my-1 text-sm shadow-lg aboutLink">
+            <li
+              class="px-4 py-2 mx-2 my-1 text-sm transition-shadow duration-300 shadow hover:shadow-lg aboutLink"
+            >
               <a href="#">
                 About Me
               </a>
             </li>
-
           </ul>
 
           <div class="relative block mx-2 md:hidden mobile_icon">
             <img
+              onclick="displayMobileMenu()"
               src="bars-solid.svg"
               alt="Mobile Menu Icon"
               class="w-16 h-16 mr-8 mobile_icon_image"
+              id="mobile_nav"
             />
             <ul
-              class="absolute flex-col hidden hover:block items-left mobile_link_list"
-              onclick="displayMobileMenu()"
+              class="justify-start w-1/2 py-2 pl-4 pr-10 mr-8 text-left bg-gray-200 flex-block"
+              id="mobile_link_list"
             >
-              <li class="space-x-2 homeMobileLink">Home</li>
+              <li class="px-4 my-1 homeMobileLink">Home</li>
 
-              <li class="space-x-2 githubMobileLink">Github</li>
+              <li class="px-4 my-1 githubMobileLink">Github</li>
 
-              <li class="space-x-2 projectsMobileLink">Projects</li>
+              <li class="px-4 my-1 projectsMobileLink">Projects</li>
 
-              <li class="space-x-2 aboutMobileLink">About Me</li>
-
+              <li class="px-4 my-1 aboutMobileLink">About Me</li>
             </ul>
           </div>
         </div>
       </nav>
 
       <section
-        class="mb-1 text-center bg-gray-200 sectionContainer section_one"
+        class="mb-1 text-center bg-gray-200 sectionContainer"
+        id="section_one"
         data-testid="sectionOne"
       >
-        <div class="text-4xl bg-gray-700 bg-opacity-50">
-          Section Section Section Section Section
-        </div>
+        <div class="text-4xl bg-gray-700 bg-opacity-50"></div>
       </section>
 
       <section
         class="mb-1 text-center bg-blue-400 sectionContainer"
         data-testid="sectionTwo
-        section_two"
+        "
+        id="section_two"
       >
         <div class="text-4xl bg-gray-700 bg-opacity-50">
           Section Section Section Section Section
@@ -106,7 +115,8 @@
       <section
         class="mb-1 text-center bg-gray-200 sectionContainer"
         data-testid="sectionThree
-        section_three"
+        "
+        id="section_three"
       >
         <div class="text-4xl bg-gray-700 bg-opacity-50">
           Section Section Section Section Section
@@ -114,7 +124,8 @@
       </section>
 
       <section
-        class="mb-1 text-center bg-blue-400 sectionContainer section_four"
+        class="mb-1 text-center bg-blue-400 sectionContainer"
+        id="section_four"
         data-testid="sectionFour"
       >
         <div class="text-4xl">

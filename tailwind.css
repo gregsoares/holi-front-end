@@ -1,0 +1,15 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+#mobile_link_list {
+  @apply absolute;
+  @apply flex-col;
+  @apply hidden;
+  @apply items-left;
+}
+#mobile_link_list:hover::after {
+  @apply bg-blue-700;
+}
+
+
+@import 'tailwindcss/utilities';
