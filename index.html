@@ -2,21 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" href="./assets/imgs/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Web Development Portfolio & Service" />
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css" async/>
+    <link rel="stylesheet" href="./assets/css/styles.css" async />
     <!-- Custom Scripts -->
-    <script src="./main.js" type="text/javascript" async></script>
+    <script src="./assets/js/main.js" type="text/javascript" async></script>
 
     <title>Practice JavaScript & TailwindCSS</title>
   </head>
-  <body
-    onload="loadEventListeners()"
-    class="max-w-xl text-gray-900 bg-gray-400 bodyContainer"
-  >
+  <body class="max-w-xl text-gray-900 bg-gray-400 bodyContainer">
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <div class="w-screen h-screen p-0 m-0 root">
@@ -26,14 +23,15 @@
       >
         <a
           role="button"
-          class="flex self-center px-4 py-2 text-2xl font-medium transition-shadow duration-300 hover:shadow-xl "
-          id="brand_name" data-testid="brandName"
+          class="flex self-center px-4 py-2 text-2xl font-medium transition-shadow duration-300 hover:shadow-xl"
+          id="brand_name"
+          data-testid="brandName"
         >
           BrandName
         </a>
         <div class="text-2xl nav_links" data-testid="navLinks">
           <ul
-            class="items-center hidden py-4 mx-2 font-semibold md:flex "
+            class="items-center hidden py-4 mx-2 font-semibold md:flex"
             id="link_list"
           >
             <li
@@ -98,7 +96,60 @@
         id="section_one"
         data-testid="sectionOne"
       >
-        <div class="text-4xl bg-gray-700 bg-opacity-50"></div>
+        <div class="bg-gray-700 bg-opacity-50">
+          <p class="py-2 mx-auto mt-2 mb-2 text-4xl">
+            Full Stack JavaScript Web Development
+          </p>
+          <div id="intro-content" class="flex justify-around w-full">
+            <div id="left-intro-content" class="text-left">
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+            </div>
+            <div
+              class="w-2/3 h-40 text-left border border-black border-solid"
+              id="right-intro-content"
+            >
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+              <p
+                class="intro-subtitle hover:scale-1"
+              >
+                Full Stack
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section

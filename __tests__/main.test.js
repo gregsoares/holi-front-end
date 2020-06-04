@@ -1,6 +1,6 @@
-const { addAllEL, listNodes, loadAllEventListeners } = require('./main');
+const { addAllEL, listNodes, loadAllEventListeners } = require('../assets/js/main');
 
-
+// 
 describe('ResultSection test suite', () => {
   test('loads and returns message: "Empty List"', () => {
     let result = listNodes([])

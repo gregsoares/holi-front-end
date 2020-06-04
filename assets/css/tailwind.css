@@ -1,0 +1,39 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+#mobile_link_list {
+  @apply absolute;
+  @apply flex-col;
+  @apply hidden;
+}
+#mobile_link_list:hover::after {
+  @apply bg-blue-700;
+}
+
+.intro-subtitle {
+  @apply font-sans;
+  @apply font-semibold;
+  @apply leading-relaxed;
+  @apply tracking-wide;
+  @apply text-lg;
+  @apply leading-normal;
+  @apply tracking-normal;
+  @apply text-xl;
+}
+
+@import 'tailwindcss/utilities';
+
+@variants hover,focus {
+  .scale-1 {
+    transform: scale(1.2, 1.2);
+  }
+  .scale-2 {
+    transform: scale(14., 1.4);
+  }
+  .scale-3 {
+    transform: scale(16., 1.6);
+  }
+  .scale-4 {
+    transform: scale(18., 1.8);
+  }
+}

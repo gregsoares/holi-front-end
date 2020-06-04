@@ -5,7 +5,7 @@
   "main": ".eslintrc.js",
   "scripts": {
     "test": "jest --coverage --watchAll",
-    "build": "postcss css/tailwind.css -o public/build/tailwind.css",
+    "build": "postcss assets/css/tailwind.css -o assets/css/styles.css",
     "coverage": "NODE_ENV=development nyc --reporter=text npm test"
   },
   "keywords": [],
