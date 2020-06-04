@@ -5,24 +5,34 @@ if (document.readyState == 'loading') {
 }
 
 function ready() {
-  const top_nav = document.getElementById('link_list');
-  // Top Nav EL
-  for (let i = 0; i < top_nav.length; i++) {
-    const element = top_nav[i];
+  // const top_nav = document.getElementById('link_list');
+  const Topnav = document.getElementById('Topnav');
+  console.debug(Topnav)
+  for (let i = 0; i < Topnav.length; i++) {
+    const element = Topnav[i];
     element.addEventListener('click', e => {
       // handle topNav link click
       console.debug(e.target)
     })
   }
 
+  // Top Nav EL
+  // for (let i = 0; i < top_nav.length; i++) {
+  //   const element = top_nav[i];
+  //   element.addEventListener('click', e => {
+  //     // handle topNav link click
+  //     console.debug(e.target)
+  //   })
+  // }
+
   // Mobile Nav EL
-  const mobile_nav = document.getElementById('mobile_nav');
-  top_nav.addEventListener('click', (e) => {
-    console.debug(e.target)
-  })
-  mobile_nav.parentElement.addEventListener('hover', (e) => {
-    console.debug(e.target)
-  })
+  // const mobile_nav = document.getElementById('mobile_nav');
+  // top_nav.addEventListener('click', (e) => {
+  //   console.debug(e.target)
+  // })
+  // mobile_nav.parentElement.addEventListener('hover', (e) => {
+  //   console.debug(e.target)
+  // })
   // console.log(top_nav.)
 }
 
@@ -44,13 +54,6 @@ function ready() {
 //     })
 //   }
 
-
-function displayResults() {
-}
-
-
-
-
 function handleClick() {
   const body = document.getElementById('section_one');
   body.innerHTML = `
@@ -66,13 +69,4 @@ function handleClick() {
   `
 }
 
-function loadEventListeners() {
-  console.debug('Loading Event Listeners');
-  addAllEL();
-}
-
-function displayMobileMenu() {
-
-}
-
-module.exports = cmd, loadEventListeners(), handleClick();
+module.exports = handleClick(), ready();
