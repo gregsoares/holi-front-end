@@ -1,7 +1,9 @@
 
 Todo:
   ReactJs:
-    ☐ Convert to reactJs application
+    ☐ Setup each component on oldIndex page
+      ☐ IntroSection
+      ☐ Projects Section
   Topnav:
     ☐ Style Mobile Nav Container (sticky-top, transparent?)
       ☐ Drop down on hover
@@ -14,5 +16,10 @@ Todo:
       ☐ Almost full width vertical card style (text | image)^
   
 Archive:
+  ✔ Cleanup startup files @started(20-06-04 22:39) @done(20-06-04 22:56) @lasted(17m8s) @project(Todo.ReactJs)
+  ✔ Setup tests @started(20-06-04 22:39) @done(20-06-04 22:56) @lasted(17m5s) @project(Todo.ReactJs)
+  ✔ Setup project file structure @started(20-06-04 22:39) @done(20-06-04 22:56) @lasted(17m4s) @project(Todo.ReactJs)
+  ✔ Topnav @done(20-06-04 22:56) @project(Todo.ReactJs)
+  ✔ Convert to reactJs application @done(20-06-04 22:36) @project(Todo.ReactJs)
   ✔ Style main Nav container @done(20-06-01 23:18) @project(Todo.Topnav)
   ✔ EventListeners (action dependend on id/data-*) @done(20-06-04 21:44) @project(Todo.Topnav)
