@@ -1,10 +1,10 @@
 
 Todo:
+  ReactJs:
+    ☐ Convert to reactJs application
   Topnav:
-    ✔ Style main Nav container @done(20-06-01 23:18)
     ☐ Style Mobile Nav Container (sticky-top, transparent?)
       ☐ Drop down on hover
-        ☐ EventListeners (action dependend on id/data-*)
     ☐ LinkedIn Icon
   IntroSecton:
     ☐ Style main Intro Container
@@ -13,3 +13,6 @@ Todo:
     ☐ Style Main Content for 3 Projects (staggered)
       ☐ Almost full width vertical card style (text | image)^
   
+Archive:
+  ✔ Style main Nav container @done(20-06-01 23:18) @project(Todo.Topnav)
+  ✔ EventListeners (action dependend on id/data-*) @done(20-06-04 21:44) @project(Todo.Topnav)
