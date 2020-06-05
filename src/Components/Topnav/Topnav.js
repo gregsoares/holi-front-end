@@ -6,15 +6,17 @@ export const Topnav = () => {
       <nav className="bg-gray-800" id="Topnav">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
+            <div className="flex justify-between ">
+              <div className="w-12 h-12 bg-blue-600 border border-2 border-blue-700 rounded-full">
+                <div className="flex items-center justify-center w-full h-full p-0 m-0 text-lg font-bold uppercase">GS</div></div>
+              {/* <div className="flex-shrink-0">
                 <img
                   className="w-8 h-8"
                   src="/img/logos/workflow-mark-on-dark.svg"
                   alt="Workflow logo"
                 />
-              </div>
-              <div className="hidden md:block">
+              </div> */}
+              <div className="hidden mx-auto md:block">
                 <div className="flex items-baseline ml-10">
                   <a
                     href="/"
@@ -57,9 +59,9 @@ export const Topnav = () => {
                     viewBox="0 0 24 24"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                     />
                   </svg>
@@ -91,7 +93,7 @@ export const Topnav = () => {
                   From: "transform opacity-100 scale-100"
                   To: "transform opacity-0 scale-95"
               --> */}
-                    <div
+                  <div
                     className="absolute right-0 w-48 mt-2 origin-top-right rounded-md shadow-lg"
                   >
                     <div
@@ -136,9 +138,9 @@ export const Topnav = () => {
                   viewBox="0 0 24 24"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
@@ -150,9 +152,9 @@ export const Topnav = () => {
                   viewBox="0 0 24 24"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -166,7 +168,7 @@ export const Topnav = () => {
 
       Open: "block", closed: "hidden"
     --> */}
-          <div className="hidden md:hidden">
+        <div className="hidden md:hidden">
           <div className="px-2 pt-2 pb-3 sm:px-3">
             <a
               href="/"

@@ -4,6 +4,7 @@ Todo:
     ☐ Setup each component on oldIndex page
       ☐ IntroSection
       ☐ Projects Section
+    ☐ main.js ?
   Topnav:
     ☐ Style Mobile Nav Container (sticky-top, transparent?)
       ☐ Drop down on hover
