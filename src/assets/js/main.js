@@ -36,4 +36,4 @@ function ready() {
   //   }
 }
 
-module.exports = handleClick(), ready();
+module.exports = handleClick();
