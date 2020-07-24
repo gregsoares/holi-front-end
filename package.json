@@ -2,11 +2,10 @@
   "name": "holi-front-end",
   "version": "0.1.0",
   "private": true,
-  "main": "./src/index.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
@@ -14,11 +13,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "reactTest": "react-scripts test",
-    "eject": "react-scripts eject",
-    "test": "jest --coverage --watchAll",
-    "tailwindBuild": "postcss src/assets/css/tailwind.css -o src/assets/css/styles.css",
-    "coverage": "NODE_ENV=development nyc --reporter=text npm test"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
