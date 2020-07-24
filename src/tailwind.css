@@ -1,0 +1,20 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+
+@import 'tailwindcss/utilities';
+
+@variants hover,focus {
+  .scale-1 {
+    transform: scale(1.2, 1.2);
+  }
+  .scale-2 {
+    transform: scale(14., 1.4);
+  }
+  .scale-3 {
+    transform: scale(16., 1.6);
+  }
+  .scale-4 {
+    transform: scale(18., 1.8);
+  }
+}

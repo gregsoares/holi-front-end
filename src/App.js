@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Index from "./Components/Pages/Index";
+import { Container } from './Components/Container/Container';
+// TODO: Import router 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-gray-200 w-full p-0 m-0 mx-auto " data-testid="AppContainer">
+    <Index />
+    <Container class="bg-gray-300"><Index />
+    <br />
+    <br />
+    <p className="text-center text-teal-800 text-lg"><span className="text-semibold text-xl text-teal-900 hover:text-3xl hover:mx-4">TODO</span>: Load Router and start building</p>
+    <br />
+    <br />
+
+    </Container>
     </div>
   );
 }
