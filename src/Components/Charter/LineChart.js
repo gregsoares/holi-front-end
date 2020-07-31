@@ -20,7 +20,7 @@ export const LineChart = props => {
     },
   };
   const chartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    labels: (props.labels !== "" ? props.labels : (["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"])),
     datasets: [
       {
         label: "Something for 2020 (M)",
