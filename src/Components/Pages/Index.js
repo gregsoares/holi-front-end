@@ -35,19 +35,18 @@ const Index = () => {
             <Container>
               <div className="flex p-1 text-center justify-around">
                 <div className="border-gray-600">
-                <p className="border-gray-500 text-gray-700 inline w-auto text-md border  px-2 py-2">
-                  one
-                </p>
-               
-                <p className="border-gray-500 text-gray-700 inline w-auto text-md border  px-2 py-2">
-                  two
-                </p>
-                
-                <p className="border-gray-500 text-gray-700 inline w-auto text-md border  px-2 py-2">
-                  three
-                </p>
-              </div>
+                  <p className="border-gray-500 text-gray-700 inline w-auto text-md border  px-2 py-2">
+                    one
+                  </p>
 
+                  <p className="border-gray-500 text-gray-700 inline w-auto text-md border  px-2 py-2">
+                    two
+                  </p>
+
+                  <p className="border-gray-500 text-gray-700 inline w-auto text-md border  px-2 py-2">
+                    three
+                  </p>
+                </div>
               </div>
             </Container>
           </div>

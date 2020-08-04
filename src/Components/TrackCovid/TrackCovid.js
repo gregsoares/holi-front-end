@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { isEmptyArray } from "formik";
 
 // APIs
 // https://disease.sh/v3/covid-19/countries
@@ -6,9 +7,8 @@ import React, { useState, useEffect } from "react";
 const countryData = require("./countries.json");
 
 export const TrackCovid = () => {
-  const [show, setShow] = useState(false);
   const [countries, setCountries] = useState([]);
-  let countrySelected = null;
+  const [countrySelected, setCountrySelected] = useState(null)
 
   const toThousand = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -30,8 +30,9 @@ export const TrackCovid = () => {
 
   useEffect(() => {
     // getCountries();
-    setCountries(countryData);
-  }, [show]);
+    if(countries.length === 0) setCountries(countryData);
+    console.log("useEffect() Executed")
+  }, [countrySelected]);
 
   const displayCountries = () => {
     console.debug(countries);
@@ -47,48 +48,49 @@ export const TrackCovid = () => {
   };
 
   const showCountryCards = (e) =>{
-    (countrySelected = countries.map((country) =>
+    let findCard = countries.map((country) =>
       country.countryInfo.iso2 === e.target.value ? (
         <div
-          className="border-black border-1 flex-shrink-0"
+          className="flex justify-around my-1"
           key={country.countryInfo._id}
         >
-          <div className="border bg-gray-800 mx-4 my-2  text-left">
-            <div className=" flex">
+          <div className="border border-1 bg-gray-800  text-left">
+            <div className="mb-2 mt-4 flex">
               <img
-                className="w-12"
+                className="w-12 mr-2"
                 src={country.countryInfo.flag}
                 alt="Country's flag"
               />
-              <p className="flex mx-auto text-2xl text-center">
-                {country.country}
+              <p className="mx-auto flex text-2xl text-center">
+                {`${country.country} (${country.countryInfo.iso2})`}
               </p>
             </div>
             <p className="px-2 text-xs text-gray-300">
               {/* (Updated: {country.updated}) */}
             </p>
-            <p className="">Total Cases: {toThousand(country.cases)}</p>
-            <p className="">Recovered: {toThousand(country.recovered)}</p>
-            <p className="">Total Cases: {toThousand(country.deaths)}</p>
-            <hr />
-            <p className="pt-2">Population: {toThousand(country.population)}</p>
-            <p className="">{country.countryInfo.iso2} </p>
+            <p className="px-4">Total Cases: {toThousand(country.cases)}</p>
+            <p className="px-4">Recovered: {toThousand(country.recovered)}</p>
+            <p className="px-4">Total Cases: {toThousand(country.deaths)}</p>
+            <hr className="py-2"/>
+            <p className="px-4">Population: {toThousand(country.population)}</p>
           </div>
         </div>
       ) : (
-        null
+       null 
       )
-    ))
+    )
+    findCard = findCard.filter(el => el !== null)
+    setCountrySelected(findCard)
   console.log(countrySelected)};
 
   const handleCountrySelect = async (e) => showCountryCards(e);
 
   return (
     <form
-      className="flex flex-wrap justify-between border"
+      className="w-full flex justify-end border"
       data-testid="TrackCovidContainer"
     >
-      <div className="px-4 py-2 text-center border bg-gray-200 text-gray-700">
+      <div className="w-1/3 px-4 py-2 text-center border bg-indigo-400 bg-opacity-75 text-gray-700">
         Country List:{" "}
         <select
           className="text-sm pl-2 ml-4"
@@ -110,8 +112,8 @@ export const TrackCovid = () => {
             </option>
           ))}
         </select>
-      </div>
       {countrySelected ? countrySelected : "No selection made"}
+      </div>
     </form>
   );
 };
