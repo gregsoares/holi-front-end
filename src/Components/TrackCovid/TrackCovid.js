@@ -3,45 +3,17 @@ import React, { useState, useEffect } from "react";
 // APIs
 // https://disease.sh/v3/covid-19/countries
 
-// TODO: useEffect to fetch API 'onLoad'
-/*======= DATA FORMAT ========
-    {
-        "updated": 1596199919870,
-        "country": "Afghanistan",
-        "countryInfo": {
-            "_id": 4,
-            "iso2": "AF",
-            "iso3": "AFG",
-            "lat": 33,
-            "long": 65,
-            "flag": "https://disease.sh/assets/img/flags/af.png"
-        },
-        "cases": 36675,
-        "todayCases": 133,
-        "deaths": 1272,
-        "todayDeaths": 1,
-        "recovered": 25509,
-        "todayRecovered": 38,
-        "active": 9894,
-        "critical": 31,
-        "casesPerOneMillion": 941,
-        "deathsPerOneMillion": 33,
-        "tests": 89066,
-        "testsPerOneMillion": 2284,
-        "population": 38992638,
-        "continent": "Asia",
-        "oneCasePerPeople": 1063,
-        "oneDeathPerPeople": 30655,
-        "oneTestPerPeople": 438,
-        "activePerOneMillion": 253.74,
-        "recoveredPerOneMillion": 654.2,
-        "criticalPerOneMillion": 0.8
-    }
-*/
 const countryData = require("./countries.json");
 
 export const TrackCovid = () => {
+  const [show, setShow] = useState(false);
   const [countries, setCountries] = useState([]);
+  let countrySelected = null;
+
+  const toThousand = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   //   const getCountries = async () => {
   //     await fetch("https://disease.sh/v3/covid-19/countries")
   //       .then((res) => res.json())
@@ -59,7 +31,7 @@ export const TrackCovid = () => {
   useEffect(() => {
     // getCountries();
     setCountries(countryData);
-  }, []);
+  }, [show]);
 
   const displayCountries = () => {
     console.debug(countries);
@@ -74,27 +46,72 @@ export const TrackCovid = () => {
     return displayCountry;
   };
 
-  return (
-    <div className="justify-between" data-testid="TrackCovidContainer">
-      {countries.map((country) => (
-        <div className="max-w-md">
+  const showCountryCards = (e) =>{
+    (countrySelected = countries.map((country) =>
+      country.countryInfo.iso2 === e.target.value ? (
+        <div
+          className="border-black border-1 flex-shrink-0"
+          key={country.countryInfo._id}
+        >
           <div className="border bg-gray-800 mx-4 my-2  text-left">
             <div className=" flex">
-              <img className="w-12" src={country.countryInfo.flag} alt="Country's flag" />
-              <p className="flex mx-auto text-2xl text-center">{country.country}</p>
+              <img
+                className="w-12"
+                src={country.countryInfo.flag}
+                alt="Country's flag"
+              />
+              <p className="flex mx-auto text-2xl text-center">
+                {country.country}
+              </p>
             </div>
             <p className="px-2 text-xs text-gray-300">
-              (Updated: {country.updated})
+              {/* (Updated: {country.updated}) */}
             </p>
-            <p className="">Total Cases: {country.cases}</p>
-            <p className="">Recovered: {country.recovered}</p>
-            <p className="">Total Cases: {country.deaths}</p>
+            <p className="">Total Cases: {toThousand(country.cases)}</p>
+            <p className="">Recovered: {toThousand(country.recovered)}</p>
+            <p className="">Total Cases: {toThousand(country.deaths)}</p>
             <hr />
-            <p className="pt-2">Pupolation: {country.population}</p>
+            <p className="pt-2">Population: {toThousand(country.population)}</p>
             <p className="">{country.countryInfo.iso2} </p>
           </div>
         </div>
-      ))}
-    </div>
+      ) : (
+        null
+      )
+    ))
+  console.log(countrySelected)};
+
+  const handleCountrySelect = async (e) => showCountryCards(e);
+
+  return (
+    <form
+      className="flex flex-wrap justify-between border"
+      data-testid="TrackCovidContainer"
+    >
+      <div className="px-4 py-2 text-center border bg-gray-200 text-gray-700">
+        Country List:{" "}
+        <select
+          className="text-sm pl-2 ml-4"
+          id="DropContainer "
+          name="dropContainer"
+          onChange={handleCountrySelect}
+        >
+          {countries.map((country) => (
+            <option
+              className="hover:bg-gray-200 hover:text-md hover:border w-auto"
+              value={country.countryInfo.iso2}
+              key={
+                country.countryInfo._id
+                  ? country.countryInfo._id
+                  : Math.random()
+              }
+            >
+              {country.country} ({country.countryInfo.iso2}){" "}
+            </option>
+          ))}
+        </select>
+      </div>
+      {countrySelected ? countrySelected : "No selection made"}
+    </form>
   );
 };

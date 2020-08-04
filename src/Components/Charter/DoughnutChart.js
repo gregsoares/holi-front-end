@@ -19,10 +19,8 @@ export const DoughnutChart = props => {
     ]
   };
   return (
-    <div>
-      <div className="max-w-2xl border-2 border-black" id="DoughnutChartContainer">
+      <div className="border-2 border-gray-600 border-dashed" id="DoughnutChartContainer">
         <Doughnut data={chartData} options={doughnutOptions} />
-      </div>
     </div>
   );
 };

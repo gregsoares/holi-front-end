@@ -23,19 +23,19 @@ export const LineChart = props => {
     labels: (props.labels !== "" ? props.labels : (["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"])),
     datasets: [
       {
-        label: "Something for 2020 (M)",
+        label: "(M)",
         data: [2, 3, 4, 3, 5, 2, 4],
         borderColor: ["blue"],
         pointBackgroundColor: "black",
       },
       {
-        label: "Something for 2020 (M)",
+        label: "(M)",
         data: [4, 3, 3, 2, 4, 2, 3],
         borderColor: ["green"],
         pointBackgroundColor: "rgba(255,206,86,0.2)",
       },
       {
-        label: "Something for 2020 (M)",
+        label: "(M)",
         data: [3, 2, 1, 1, 3, 4, 3],
         borderColor: ["red"],
         pointBackgroundColor: "black",
