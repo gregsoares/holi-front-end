@@ -1,7 +1,7 @@
 import React from "react";
 import { BounceLoader, BarLoader, BeatLoader } from "react-spinners";
 
-export const Loader = () => {
+export const Loader = props => {
   return (
     <div>
       <div className="mx-auto my-4">

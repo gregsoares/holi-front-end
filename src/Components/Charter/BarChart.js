@@ -5,14 +5,14 @@ export const BarChart = props => {
   const barOptions = {
     title: {
       display: true,
-      text: "Bar Chat",
+      text: "Bar Chart",
     },
     scales: {
       yAxes: [
         {
           ticks: {
             min: 0,
-            max: 7,
+            max: 10,
             stepSize: 2,
           },
         },
