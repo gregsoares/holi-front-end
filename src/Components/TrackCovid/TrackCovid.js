@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Bar } from "react-chartjs-2";
 // APIs
 // https://disease.sh/v3/covid-19/countries
 
@@ -8,12 +8,64 @@ import React, { useState, useEffect } from "react";
 export const TrackCovid = () => {
   const [countries, setCountries] = useState([]);
   const [countrySelected, setCountrySelected] = useState(null);
+  const [USData, setUSData] = useState([]);
 
   const toThousand = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  const loadUSBarGraph = () => {
+    const dataModel = USData.map((today) => ({
+      date: today.date,
+      positive: today.positive,
+      negative: today.negative,
+      pending: today.pending,
+      hospitalizedCurrently: today.hospitalizedCurrently,
+      hospitalizedCumulative: today.hospitalizedCumulative,
+      inIcuCurrently: today.inIcuCurrently,
+      inIcuCumulative: today.inIcuCumulative,
+      onVentilatorCurrently: today.onVentilatorCurrently,
+      onVentilatorCumulative: today.onVentilatorCumulative,
+      recovered: today.recovered,
+      death: today.death,
+      hospitalized: today.hospitalized,
+      total: today.total,
+      totalTestResults: today.totalTestResults,
+      posNeg: today.posNeg,
+      deathIncrease: today.deathIncrease,
+      hospitalizedIncrease: today.hospitalizedIncrease,
+      negativeIncrease: today.negativeIncrease,
+      positiveIncrease: today.positiveIncrease,
+      totalTestResultsIncrease: today.totalTestResultsIncrease,
+      hash: today.hash,
+    }));
+    console.log(`dataModel: ${dataModel[0].date}`);
+
+    // TODO: load each necessary data point into it's own array, THEN load graph
+    // {(USData.length !== 0 ? (<Bar
+    // data={ {
+    //   labels: [(JSON.stringify(USData[0].date)).slice(6,8)],
+    //   datasets: [{
+    //     label: 'Positive (daily)',
+    //     data: USData[0].positive }]
+    //   }}
+    //   />) : "")}
+
+    // return dataModel;
+  };
+
   useEffect(() => {
+    const getUSData = async () => {
+      await fetch("https://api.covidtracking.com/v1/us/daily.json")
+        .then((res) => res.json())
+        .then((data) => {
+          const usData = data.map((stateData) => stateData);
+          setUSData(usData);
+        })
+        .catch((err) => console.debug(err));
+    }; // END getCountries()
+    getUSData();
+
     const getCountries = async () => {
       await fetch("https://disease.sh/v3/covid-19/countries")
         .then((res) => res.json())
@@ -64,7 +116,7 @@ export const TrackCovid = () => {
             </p>
             <p className="mx-4">Total Cases: {toThousand(country.cases)}</p>
             <p className="mx-4">Recovered: {toThousand(country.recovered)}</p>
-            <p className="mx-4">Total Cases: {toThousand(country.deaths)}</p>
+            <p className="mx-4">Deaths: {toThousand(country.deaths)}</p>
             <hr className="my-2" />
             <p className="mx-4">Population: {toThousand(country.population)}</p>
           </div>
@@ -73,7 +125,8 @@ export const TrackCovid = () => {
     );
     findCard = findCard.filter((el) => el !== null);
     setCountrySelected(findCard);
-    console.log(countrySelected);
+    loadUSBarGraph();
+    console.log(`key: ${findCard[0].key} \n ${JSON.stringify(findCard)}`);
   };
 
   const handleCountrySelect = async (e) => showCountryCards(e);
@@ -110,6 +163,26 @@ export const TrackCovid = () => {
           {countrySelected ? countrySelected : "No selection made"}
         </div>
       </form>
+      {/* TODO: Make use of US data and load it onto Bar chart */}
+      {/* TODO: Load overall data in superimposed linechart  */}
+      {/* w-xsmall, diff colors between bar <> line  */}
+      <div className="flex max-w-2xl p-0 mx-2" id="BarChartContainer">
+        {USData.length !== 0 ? (
+          <Bar
+            data={{
+              labels: [JSON.stringify(USData[0].date).slice(6, 8)],
+              datasets: [
+                {
+                  label: "Positive (daily)",
+                  data: USData[0].positive,
+                },
+              ],
+            }}
+          />
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };
