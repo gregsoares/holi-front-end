@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { Loader } from "../Loader/Loader";
+import { Charter } from "../Charter/Charter";
 // APIs
 // https://disease.sh/v3/covid-19/countries
 
@@ -18,52 +19,75 @@ export const TrackCovid = () => {
     return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "";
   };
 
-  // const loadUSBarGraph = () => {
-  //   const dataModel = USData.map((today) => ({
-  //     date: today.date,
-  //     positive: today.positive,
-  //     negative: today.negative,
-  //     pending: today.pending,
-  //     hospitalizedCurrently: today.hospitalizedCurrently,
-  //     hospitalizedCumulative: today.hospitalizedCumulative,
-  //     inIcuCurrently: today.inIcuCurrently,
-  //     inIcuCumulative: today.inIcuCumulative,
-  //     onVentilatorCurrently: today.onVentilatorCurrently,
-  //     onVentilatorCumulative: today.onVentilatorCumulative,
-  //     recovered: today.recovered,
-  //     death: today.death,
-  //     hospitalized: today.hospitalized,
-  //     total: today.total,
-  //     totalTestResults: today.totalTestResults,
-  //     posNeg: today.posNeg,
-  //     deathIncrease: today.deathIncrease,
-  //     hospitalizedIncrease: today.hospitalizedIncrease,
-  //     negativeIncrease: today.negativeIncrease,
-  //     positiveIncrease: today.positiveIncrease,
-  //     totalTestResultsIncrease: today.totalTestResultsIncrease,
-  //     hash: today.hash,
-  //   }));
-  //   console.log(`dataModel: ${dataModel[0].positive}`);
+  const loadUSBarGraph = () => {
+    const dataModel = [];
+    dataModel.push(
+      USData.map((today) => ({
+        date: today.date,
+        positive: today.positive,
+        negative: today.negative,
+        pending: today.pending,
+        hospitalizedCurrently: today.hospitalizedCurrently,
+        hospitalizedCumulative: today.hospitalizedCumulative,
+        inIcuCurrently: today.inIcuCurrently,
+        inIcuCumulative: today.inIcuCumulative,
+        onVentilatorCurrently: today.onVentilatorCurrently,
+        onVentilatorCumulative: today.onVentilatorCumulative,
+        recovered: today.recovered,
+        death: today.death,
+        hospitalized: today.hospitalized,
+        total: today.total,
+        totalTestResults: today.totalTestResults,
+        posNeg: today.posNeg,
+        deathIncrease: today.deathIncrease,
+        hospitalizedIncrease: today.hospitalizedIncrease,
+        negativeIncrease: today.negativeIncrease,
+        positiveIncrease: today.positiveIncrease,
+        totalTestResultsIncrease: today.totalTestResultsIncrease,
+        hash: today.hash,
+      }))
+    );
 
-  //   // TODO: load each necessary data point into it's own array, THEN load graph
-  //   // {(USData.length !== 0 ? (<Bar
-  //   // data={ {
-  //   //   labels: [(JSON.stringify(USData[0].date)).slice(6,8)],
-  //   //   datasets: [{
-  //   //     label: 'Positive (daily)',
-  //   //     data: USData[0].positive }]
-  //   //   }}
-  //   //   />) : "")}
+    // console.log(`dataModel: ${JSON.stringify(dataModel)}`);
 
-  //   // return dataModel;
-  // };
+    // TODO: load each necessary data point into it's own array, THEN load graph
+    const chartData = {
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: "Total US daily (thousands)",
+            data: [],
+            borderDash: [],
+            backgroundColor: "rgba(75,192,192,1)",
+            borderCapStyle: "butt",
+          },
+        ],
+      },
+    };
+
+    USData.forEach((day) => {
+      chartData.data.labels.push(
+        `${day.date.toString().substring(4, 6)}/${day.date
+          .toString()
+          .substring(6, 8)}`
+      );
+      chartData.data.datasets[0].data.push(day.total / 10000000);
+    });
+    chartData.data.labels.reverse();
+    chartData.data.datasets[0].data.reverse();
+    return <Line data={chartData.data} />;
+  };
 
   useEffect(() => {
     const getUSData = async () => {
       await fetch("https://api.covidtracking.com/v1/us/daily.json")
         .then((res) => res.json())
         .then((data) => {
-          const usData = data.map((stateData) => stateData);
+          const usData = data.map((day) => day);
+          console.debug(
+            `inside useEffect before setUSData(): \ndata: ${usData}`
+          );
           setUSData(usData);
         })
         .catch((err) => console.debug(err));
@@ -128,20 +152,20 @@ export const TrackCovid = () => {
       <div className="flex-inline text-xs text-center mx-2 px-2 border border-teal-500 py-3 rounded-md shadow">
         Today: (USA)
         <div className="flex">
-          <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+          <div className="flex-flexcol border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Positive</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].positive)}
               </p>
             </div>
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Positive Increase</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].positiveIncrease)}
               </p>
             </div>
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Recovered</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].recovered)}
@@ -149,20 +173,20 @@ export const TrackCovid = () => {
             </div>
           </div>{" "}
           {/* END DataContaier 1 */}
-          <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+          <div className="flex-flexcol border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Negative</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].negative)}
               </p>
             </div>
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Negative Increase</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].negativeIncrease)}
               </p>
             </div>
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Deaths</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].death)}
@@ -170,20 +194,20 @@ export const TrackCovid = () => {
             </div>
           </div>{" "}
           {/* END DataContaier 2 */}
-          <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+          <div className="flex-flexcol border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Total Test Results</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].totalTestResults)}
               </p>
             </div>
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Test Results Increase</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].totalTestResultsIncrease)}
               </p>
             </div>
-            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
               <p className="font-semibold">Date:</p>
               <p className="text-sm text-black">{`${dataModel[0].date
                 .toString()
@@ -241,8 +265,8 @@ export const TrackCovid = () => {
     findCard = findCard.filter((el) => el !== null);
     setCountrySelected(findCard);
     // loadUSBarGraph();
-    console.log(`key: ${findCard[0].key} \n ${JSON.stringify(findCard)}`);
-  };
+    // console.log(`showCountryCards(): key: ${findCard[0].key} \n ${JSON.stringify(findCard)}`);
+  }; //END showCountryCards()
 
   const handleCountrySelect = async (e) => showCountryCards(e);
 
@@ -282,10 +306,15 @@ export const TrackCovid = () => {
   }; //END countrySelector()
 
   return (
-    <div className="flex">
-      {USData.length > 0 ? showUSCard() : <Loader />}
-      <div className="flex py-0 my-0 ml-6">
-        {countries.length > 0 ? countrySelector() : <Loader />}
+    <div className="">
+      <div className="flex ">
+        {USData.length > 0 ? showUSCard() : <Loader />}
+        {USData.length > 0 ? countrySelector() : <Loader />}
+      </div>
+      <div className="my-3 mx-0 px-2">
+        <div className="mx-auto max-w-xl">
+          {USData.length > 0 ? loadUSBarGraph() : <Loader />}
+        </div>
       </div>
     </div>
   );
