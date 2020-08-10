@@ -1,18 +1,10 @@
 import React from "react";
-import { BounceLoader, BarLoader, BeatLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 
-export const Loader = props => {
+export const Loader = (props) => {
   return (
-    <div>
-      <div className="mx-auto my-4">
-        <BounceLoader loading size={24} />
-      </div>
-      <div className="mx-auto my-4">
-        <BarLoader loading color="white" />
-      </div>
-      <div className="mx-auto my-4">
-        <BeatLoader loading />
-      </div>
-    </div>
+    <span className="inline-flex mx-auto m-0 py-3 px-4 ">
+      <PulseLoader loading />
+    </span>
   );
 };

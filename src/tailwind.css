@@ -1,6 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-
+  #root {
+    @apply box-border;
+  }
+  *, *::before, *::after {
+    @apply box-border;
+  }
 
 @import 'tailwindcss/utilities';
 

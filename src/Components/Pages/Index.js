@@ -3,7 +3,12 @@ import { TrackCovid } from "../TrackCovid/TrackCovid";
 
 const Index = () => {
   return (
-    <TrackCovid />
+    <div
+      className="bg-gray-200 w-full p-0 m-0"
+      data-testid="IndexPageContainer"
+    >
+      <TrackCovid />
+    </div>
   );
 };
 

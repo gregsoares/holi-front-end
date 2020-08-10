@@ -1,20 +1,103 @@
 import React, { useState, useEffect } from "react";
-import { Bar } from "react-chartjs-2";
+// import { Bar } from "react-chartjs-2";
+import { Loader } from "../Loader/Loader";
 // APIs
 // https://disease.sh/v3/covid-19/countries
 
-// const countryData = require("./countries.json");
+const countryData = require("./countries.json");
 
+// TODO: Break into smaller components
+// TODO: export API functions to API file
+// TODO: useContext
 export const TrackCovid = () => {
   const [countries, setCountries] = useState([]);
   const [countrySelected, setCountrySelected] = useState(null);
   const [USData, setUSData] = useState([]);
 
   const toThousand = (num) => {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "";
   };
 
-  const loadUSBarGraph = () => {
+  // const loadUSBarGraph = () => {
+  //   const dataModel = USData.map((today) => ({
+  //     date: today.date,
+  //     positive: today.positive,
+  //     negative: today.negative,
+  //     pending: today.pending,
+  //     hospitalizedCurrently: today.hospitalizedCurrently,
+  //     hospitalizedCumulative: today.hospitalizedCumulative,
+  //     inIcuCurrently: today.inIcuCurrently,
+  //     inIcuCumulative: today.inIcuCumulative,
+  //     onVentilatorCurrently: today.onVentilatorCurrently,
+  //     onVentilatorCumulative: today.onVentilatorCumulative,
+  //     recovered: today.recovered,
+  //     death: today.death,
+  //     hospitalized: today.hospitalized,
+  //     total: today.total,
+  //     totalTestResults: today.totalTestResults,
+  //     posNeg: today.posNeg,
+  //     deathIncrease: today.deathIncrease,
+  //     hospitalizedIncrease: today.hospitalizedIncrease,
+  //     negativeIncrease: today.negativeIncrease,
+  //     positiveIncrease: today.positiveIncrease,
+  //     totalTestResultsIncrease: today.totalTestResultsIncrease,
+  //     hash: today.hash,
+  //   }));
+  //   console.log(`dataModel: ${dataModel[0].positive}`);
+
+  //   // TODO: load each necessary data point into it's own array, THEN load graph
+  //   // {(USData.length !== 0 ? (<Bar
+  //   // data={ {
+  //   //   labels: [(JSON.stringify(USData[0].date)).slice(6,8)],
+  //   //   datasets: [{
+  //   //     label: 'Positive (daily)',
+  //   //     data: USData[0].positive }]
+  //   //   }}
+  //   //   />) : "")}
+
+  //   // return dataModel;
+  // };
+
+  useEffect(() => {
+    const getUSData = async () => {
+      await fetch("https://api.covidtracking.com/v1/us/daily.json")
+        .then((res) => res.json())
+        .then((data) => {
+          const usData = data.map((stateData) => stateData);
+          setUSData(usData);
+        })
+        .catch((err) => console.debug(err));
+    }; // END getCountries()
+    getUSData();
+    console.debug(``);
+
+    // const getCountries = async () => {
+    //   await fetch("https://disease.sh/v3/covid-19/countries")
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       const countries = data.map((country) => country);
+    //       setCountries(countries);
+    //     })
+    //     .catch((err) => console.debug(err));
+    // }; // END getCountries()
+    // getCountries();
+    if (countries.length === 0) setCountries(countryData);
+  }, [countrySelected]);
+
+  // const displayCountries = () => {
+  //   console.debug(countries);
+  //   const displayCountry = countries.map((country) => {
+  //     const countryInfo = {
+  //       name: country.country,
+  //       value: country.countryInfo.iso2,
+  //       flag: country.countryInfo.flag,
+  //     };
+  //     return countryInfo;
+  //   });
+  //   return displayCountry;
+  // };
+
+  const showUSCard = () => {
     const dataModel = USData.map((today) => ({
       date: today.date,
       positive: today.positive,
@@ -41,105 +124,134 @@ export const TrackCovid = () => {
     }));
     console.log(`dataModel: ${dataModel[0].date}`);
 
-    // TODO: load each necessary data point into it's own array, THEN load graph
-    // {(USData.length !== 0 ? (<Bar
-    // data={ {
-    //   labels: [(JSON.stringify(USData[0].date)).slice(6,8)],
-    //   datasets: [{
-    //     label: 'Positive (daily)',
-    //     data: USData[0].positive }]
-    //   }}
-    //   />) : "")}
-
-    // return dataModel;
-  };
-
-  useEffect(() => {
-    const getUSData = async () => {
-      await fetch("https://api.covidtracking.com/v1/us/daily.json")
-        .then((res) => res.json())
-        .then((data) => {
-          const usData = data.map((stateData) => stateData);
-          setUSData(usData);
-        })
-        .catch((err) => console.debug(err));
-    }; // END getCountries()
-    getUSData();
-
-    const getCountries = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
-        .then((res) => res.json())
-        .then((data) => {
-          const countries = data.map((country) => country);
-          setCountries(countries);
-        })
-        .catch((err) => console.debug(err));
-    }; // END getCountries()
-    getCountries();
-    // if(countries.length === 0) setCountries(countryData);
-    console.debug("useEffect() Executed");
-  }, [countrySelected]);
-
-  // const displayCountries = () => {
-  //   console.debug(countries);
-  //   const displayCountry = countries.map((country) => {
-  //     const countryInfo = {
-  //       name: country.country,
-  //       value: country.countryInfo.iso2,
-  //       flag: country.countryInfo.flag,
-  //     };
-  //     return countryInfo;
-  //   });
-  //   return displayCountry;
-  // };
+    return (
+      <div className="inline-flex text-xs text-center px-2 border border-teal-500 py-3 rounded-md shadow">
+        <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Positive</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].positive)}
+            </p>
+          </div>
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Positive Increase</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].positiveIncrease)}
+            </p>
+          </div>
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Recovered</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].recovered)}
+            </p>
+          </div>
+        </div>{" "}
+        {/* END DataContaier 1 */}
+        <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Negative</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].negative)}
+            </p>
+          </div>
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Negative Increase</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].negativeIncrease)}
+            </p>
+          </div>
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Deaths</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].death)}
+            </p>
+          </div>
+        </div>{" "}
+        {/* END DataContaier 2 */}
+        <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Total Test Results</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].totalTestResults)}
+            </p>
+          </div>
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Test Results Increase</p>
+            <p className="text-sm text-black">
+              {toThousand(dataModel[0].totalTestResultsIncrease)}
+            </p>
+          </div>
+          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <p className="font-semibold">Date:</p>
+            <p className="text-sm text-black">{`${dataModel[0].date
+              .toString()
+              .substring(0, 4)}/${dataModel[0].date
+              .toString()
+              .substring(4, 6)}/${dataModel[0].date
+              .toString()
+              .substring(6, 8)}`}</p>
+          </div>
+        </div>{" "}
+        {/* END DataContaier 3 */}
+      </div>
+    );
+  }; // END cardData
 
   const showCountryCards = (e) => {
     let findCard = countries.map((country) =>
       country.countryInfo.iso2 === e.target.value ? (
         <div
-          className="flex justify-around my-1 "
+          className="flex justify-around px-3 py-2"
           key={country.countryInfo._id}
         >
-          <div className="border border-1 bg-gray-800 text-left">
-            <div className="mb-2 mt-4 flex">
+          <div className="border border-black bg-white shadow-md rounded p-3">
+            <div className="flex mx-auto py-2 border-t-0 border-b-0 text-center">
               <img
-                className="w-12 mx-4 border"
+                className="flex w-12 mx-2 border"
                 src={country.countryInfo.flag}
                 alt="Country's flag"
               />
-              <p className="mx-auto flex text-2xl text-center">
+              <p className="mx-auto flex text-xl text-center">
                 {`${country.country} (${country.countryInfo.iso2})`}
               </p>
             </div>
-            <p className="mx-2 text-xs text-gray-300">
+            <p className="mx-2 text-xs text-gray-100">
               {/* (Updated: {country.updated}) */}
             </p>
-            <p className="mx-4">Total Cases: {toThousand(country.cases)}</p>
-            <p className="mx-4">Recovered: {toThousand(country.recovered)}</p>
-            <p className="mx-4">Deaths: {toThousand(country.deaths)}</p>
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Total Cases: {toThousand(country.cases)}
+            </p>
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Recovered: {toThousand(country.recovered)}
+            </p>
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Deaths: {toThousand(country.deaths)}
+            </p>
             <hr className="my-2" />
-            <p className="mx-4">Population: {toThousand(country.population)}</p>
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Population: {toThousand(country.population)}
+            </p>
           </div>
         </div>
       ) : null
     );
     findCard = findCard.filter((el) => el !== null);
     setCountrySelected(findCard);
-    loadUSBarGraph();
+    // loadUSBarGraph();
     console.log(`key: ${findCard[0].key} \n ${JSON.stringify(findCard)}`);
   };
 
   const handleCountrySelect = async (e) => showCountryCards(e);
-
-  return (
-    <div className="text-2xl py-4 px-0 m-0 shadow-md mx-auto text-black bg-blue-600">
-      <p className="text-3xl text-center">Live Covid Tracker</p>
-
-      <form className="flex" data-testid="TrackCovidContainer">
-        <div className="py-2 text-center bg-indigo-400 bg-opacity-75 text-gray-700">
+  const countrySelector = () => {
+    return (
+      <form
+        className="py-2 text-center text-gray-700"
+        data-testid="TrackCovidContainer"
+      >
+        <div className="border rounded border-teal-400 px-4 py-2">
           Country List:{" "}
           <select
-            className="text-sm pl-2 ml-4 block mx-4 py-3"
+            className="text-xs px-2 block mx-auto py-3"
             id="DropContainer "
             name="dropContainer"
             onChange={handleCountrySelect}
@@ -147,7 +259,6 @@ export const TrackCovid = () => {
             {countries.length !== 0
               ? countries.map((country) => (
                   <option
-                    className=""
                     value={country.countryInfo.iso2}
                     key={
                       country.countryInfo._id
@@ -160,28 +271,17 @@ export const TrackCovid = () => {
                 ))
               : ""}
           </select>
-          {countrySelected ? countrySelected : "No selection made"}
         </div>
+        {countrySelected ? countrySelected : "No selection made"}
       </form>
-      {/* TODO: Make use of US data and load it onto Bar chart */}
-      {/* TODO: Load overall data in superimposed linechart  */}
-      {/* w-xsmall, diff colors between bar <> line  */}
-      <div className="flex max-w-2xl p-0 mx-2" id="BarChartContainer">
-        {USData.length !== 0 ? (
-          <Bar
-            data={{
-              labels: [JSON.stringify(USData[0].date).slice(6, 8)],
-              datasets: [
-                {
-                  label: "Positive (daily)",
-                  data: USData[0].positive,
-                },
-              ],
-            }}
-          />
-        ) : (
-          ""
-        )}
+    );
+  };
+
+  return (
+    <div className="align-baseline">
+      {USData.length > 0 ? showUSCard() : <Loader />}
+      <div className=" inline-flex w-auto ml-auto px-2 ">
+        {countries.length > 0 ? countrySelector() : <Loader />}
       </div>
     </div>
   );
