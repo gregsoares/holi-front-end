@@ -71,17 +71,17 @@ export const TrackCovid = () => {
     getUSData();
     console.debug(``);
 
-    // const getCountries = async () => {
-    //   await fetch("https://disease.sh/v3/covid-19/countries")
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       const countries = data.map((country) => country);
-    //       setCountries(countries);
-    //     })
-    //     .catch((err) => console.debug(err));
-    // }; // END getCountries()
-    // getCountries();
-    if (countries.length === 0) setCountries(countryData);
+    const getCountries = async () => {
+      await fetch("https://disease.sh/v3/covid-19/countries")
+        .then((res) => res.json())
+        .then((data) => {
+          const countries = data.map((country) => country);
+          setCountries(countries);
+        })
+        .catch((err) => console.debug(err));
+    }; // END getCountries()
+    getCountries();
+    // if (countries.length === 0) setCountries(countryData);
   }, [countrySelected]);
 
   // const displayCountries = () => {
@@ -125,74 +125,77 @@ export const TrackCovid = () => {
     console.log(`dataModel: ${dataModel[0].date}`);
 
     return (
-      <div className="inline-flex text-xs text-center px-2 border border-teal-500 py-3 rounded-md shadow">
-        <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Positive</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].positive)}
-            </p>
-          </div>
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Positive Increase</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].positiveIncrease)}
-            </p>
-          </div>
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Recovered</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].recovered)}
-            </p>
-          </div>
+      <div className="flex-inline text-xs text-center mx-2 px-2 border border-teal-500 py-3 rounded-md shadow">
+        Today: (USA)
+        <div className="flex">
+          <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Positive</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].positive)}
+              </p>
+            </div>
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Positive Increase</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].positiveIncrease)}
+              </p>
+            </div>
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Recovered</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].recovered)}
+              </p>
+            </div>
+          </div>{" "}
+          {/* END DataContaier 1 */}
+          <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Negative</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].negative)}
+              </p>
+            </div>
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Negative Increase</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].negativeIncrease)}
+              </p>
+            </div>
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Deaths</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].death)}
+              </p>
+            </div>
+          </div>{" "}
+          {/* END DataContaier 2 */}
+          <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Total Test Results</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].totalTestResults)}
+              </p>
+            </div>
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Test Results Increase</p>
+              <p className="text-sm text-black">
+                {toThousand(dataModel[0].totalTestResultsIncrease)}
+              </p>
+            </div>
+            <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
+              <p className="font-semibold">Date:</p>
+              <p className="text-sm text-black">{`${dataModel[0].date
+                .toString()
+                .substring(0, 4)}/${dataModel[0].date
+                .toString()
+                .substring(4, 6)}/${dataModel[0].date
+                .toString()
+                .substring(6, 8)}`}</p>
+            </div>
+          </div>{" "}
+          {/* END DataContaier 3 */}
         </div>{" "}
-        {/* END DataContaier 1 */}
-        <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Negative</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].negative)}
-            </p>
-          </div>
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Negative Increase</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].negativeIncrease)}
-            </p>
-          </div>
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Deaths</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].death)}
-            </p>
-          </div>
-        </div>{" "}
-        {/* END DataContaier 2 */}
-        <div className="flex-col border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Total Test Results</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].totalTestResults)}
-            </p>
-          </div>
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Test Results Increase</p>
-            <p className="text-sm text-black">
-              {toThousand(dataModel[0].totalTestResultsIncrease)}
-            </p>
-          </div>
-          <div className="flex-col  mx-auto py-2 border-t-0 border-b-0 text-center">
-            <p className="font-semibold">Date:</p>
-            <p className="text-sm text-black">{`${dataModel[0].date
-              .toString()
-              .substring(0, 4)}/${dataModel[0].date
-              .toString()
-              .substring(4, 6)}/${dataModel[0].date
-              .toString()
-              .substring(6, 8)}`}</p>
-          </div>
-        </div>{" "}
-        {/* END DataContaier 3 */}
       </div>
     );
   }; // END cardData
@@ -201,7 +204,7 @@ export const TrackCovid = () => {
     let findCard = countries.map((country) =>
       country.countryInfo.iso2 === e.target.value ? (
         <div
-          className="flex justify-around px-3 py-2"
+          className="flex justify-center px-3 py-2"
           key={country.countryInfo._id}
         >
           <div className="border border-black bg-white shadow-md rounded p-3">
@@ -242,13 +245,14 @@ export const TrackCovid = () => {
   };
 
   const handleCountrySelect = async (e) => showCountryCards(e);
+
   const countrySelector = () => {
     return (
       <form
-        className="py-2 text-center text-gray-700"
+        className=" text-center text-gray-700 px-2"
         data-testid="TrackCovidContainer"
       >
-        <div className="border rounded border-teal-400 px-4 py-2">
+        <div className="border rounded border-teal-500 px-4 mb-2 py-2">
           Country List:{" "}
           <select
             className="text-xs px-2 block mx-auto py-3"
@@ -275,12 +279,12 @@ export const TrackCovid = () => {
         {countrySelected ? countrySelected : "No selection made"}
       </form>
     );
-  };
+  }; //END countrySelector()
 
   return (
-    <div className="align-baseline">
+    <div className="flex">
       {USData.length > 0 ? showUSCard() : <Loader />}
-      <div className=" inline-flex w-auto ml-auto px-2 ">
+      <div className="flex py-0 my-0 ml-6">
         {countries.length > 0 ? countrySelector() : <Loader />}
       </div>
     </div>
