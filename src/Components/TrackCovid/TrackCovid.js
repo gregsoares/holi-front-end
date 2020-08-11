@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Line } from "react-chartjs-2";
 import { Loader } from "../Loader/Loader";
 import { Charter } from "../Charter/Charter";
@@ -56,11 +56,12 @@ export const TrackCovid = () => {
         labels: [],
         datasets: [
           {
-            label: "Total US daily (thousands)",
+            label: "USA: Total Confirmed (thousands)",
             data: [],
             borderDash: [],
-            backgroundColor: "rgba(75,192,192,1)",
-            borderCapStyle: "butt",
+            borderColor: "rgba(220,92,92,.7)",
+            backgroundColor: "rgba(211,92,92,.3)",
+            pointBackgroundColor: "rgba(220,92,92,.7)",
           },
         ],
       },
@@ -72,22 +73,23 @@ export const TrackCovid = () => {
           .toString()
           .substring(6, 8)}`
       );
-      chartData.data.datasets[0].data.push(day.total / 10000000);
+      chartData.data.datasets[0].data.push(day.positive / 1000);
     });
     chartData.data.labels.reverse();
     chartData.data.datasets[0].data.reverse();
     return <Line data={chartData.data} />;
   };
 
+  // FIXME: reloading multiple times, might wanna implement useCallback
   useEffect(() => {
     const getUSData = async () => {
       await fetch("https://api.covidtracking.com/v1/us/daily.json")
         .then((res) => res.json())
         .then((data) => {
           const usData = data.map((day) => day);
-          console.debug(
-            `inside useEffect before setUSData(): \ndata: ${usData}`
-          );
+          // console.debug(
+          //   `inside useEffect before setUSData(): \ndata: ${usData}`
+          // );
           setUSData(usData);
         })
         .catch((err) => console.debug(err));
