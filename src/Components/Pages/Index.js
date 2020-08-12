@@ -1,6 +1,6 @@
 import React from "react";
 import { TrackCovid } from "../TrackCovid/TrackCovid";
-import { Charter } from "../Charter/Charter";
+import "../../assets/js/main";
 
 const Index = () => {
   return (
@@ -8,18 +8,6 @@ const Index = () => {
       className="bg-gray-200 w-full p-0 m-0"
       data-testid="IndexPageContainer"
     >
-      {/* <div className="flex max-w-lg">
-        <div className="flex mx-5 my-3">
-          <Charter chartType="doughnut" />
-        </div>
-        <div className="flex mx-5 my-3">
-          <Charter chartType="bar" />
-        </div>
-        <div className="flex mx-5 my-3">
-          <Charter chartType="line" />
-        </div>
-      </div> */}
-
       <TrackCovid />
     </div>
   );

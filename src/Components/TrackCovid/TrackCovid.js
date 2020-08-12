@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Loader } from "../Loader/Loader";
-import { Charter } from "../Charter/Charter";
+// import { Charter } from "../Charter/Charter";
 // APIs
 // https://disease.sh/v3/covid-19/countries
-
-const countryData = require("./countries.json");
 
 // TODO: Break into smaller components
 // TODO: export API functions to API file
@@ -230,7 +228,7 @@ export const TrackCovid = () => {
     let findCard = countries.map((country) =>
       country.countryInfo.iso2 === e.target.value ? (
         <div
-          className="flex justify-center px-3 py-2"
+          className="flex fixed justify-center px-3 py-2"
           key={country.countryInfo._id}
         >
           <div className="border border-black bg-white shadow-md rounded p-3">
@@ -275,7 +273,7 @@ export const TrackCovid = () => {
   const countrySelector = () => {
     return (
       <form
-        className=" text-center text-gray-700 px-2"
+        className="text-center text-gray-700 px-2"
         data-testid="TrackCovidContainer"
       >
         <div className="border rounded border-teal-500 px-4 mb-2 py-2">
@@ -302,7 +300,9 @@ export const TrackCovid = () => {
               : ""}
           </select>
         </div>
-        {countrySelected ? countrySelected : "No selection made"}
+        <div className="relative" id="countrySelectedContainer">
+          {countrySelected ? countrySelected : "No selection made"}
+        </div>
       </form>
     );
   }; //END countrySelector()
