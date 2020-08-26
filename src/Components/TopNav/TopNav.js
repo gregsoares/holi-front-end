@@ -8,7 +8,7 @@ export const TopNav = () => {
 
   useEffect(() => {
     const handleClick = () => {
-      (() => (isOpen ? setIsOpen(!isOpen) : ""))();
+      isOpen && setIsOpen(!isOpen);
     };
     document.addEventListener("mousedown", handleClick, false);
     return () => {
