@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -6,24 +6,24 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 export const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const handleClick = () => {
-      isOpen && setIsOpen(!isOpen);
-    };
-    document.addEventListener("mousedown", handleClick, false);
-    return () => {
-      document.removeEventListener("mousedown", handleClick);
-    };
-  }, [isOpen]);
+  const handleOpenMobileNav = () => {
+    setIsOpen(true);
+    document.addEventListener("mouseout", handleCloseMobileNav, false);
+  };
+  const handleCloseMobileNav = () => {
+    setIsOpen(false);
+    document.removeEventListener("mouseout", handleCloseMobileNav, false);
+  };
+
   return (
     <nav
-      className="flex flex-wrap items-center sticky justify-between m-0 w-full bg-gray-200 text-gray-700 hover:text-gray-900"
+      className="sticky z-40 flex flex-wrap items-center justify-between w-full m-0 text-gray-700 bg-gray-200 hover:text-gray-900"
       id="TopNav"
       data-testid="TopNavContainer"
     >
-      <div className="border rounded-lg order-none ml-4 mr-2 bg-teal-400 bg-opacity-75 hover:border-teal-300 border-teal-600 shadow hover:shadow-md hover:text-black text-xl">
+      <div className="order-none ml-4 mr-2 text-xl bg-teal-400 bg-opacity-75 border border-teal-600 rounded-lg shadow hover:border-teal-300 hover:shadow-md hover:text-black">
         <Link id="brandNameLink" to="/">
-          <p className="py-2 px-4">Just4Sho</p>
+          <p className="px-4 py-2">Just4Sho</p>
         </Link>
       </div>
 
@@ -31,9 +31,9 @@ export const TopNav = () => {
         className={`
          relative flex md:hidden ml-auto mr-6 border border-teal-400  py-3 px-4 items-center rounded-full bg-teal-800 text-white opacity-75 my-2 hover:border-teal-700 hover:shadow-lg shadow-sm hover:text-2xl`}
         id="mobileMenu"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => handleOpenMobileNav()}
       >
-        <span className="block md:hidden m-0 p-0">
+        <span className="block p-0 m-0 md:hidden">
           <FontAwesomeIcon icon={faBars} size="lg" />
         </span>
         <div
@@ -42,36 +42,36 @@ export const TopNav = () => {
           } fixed overflow-hidden mx-auto border-teal-500 rounded-lg text-center my-2 bg-teal-400 top-0 right-0 mt-16 origin-top transform transition-height duration-500 ease-out`}
           id="mobileNavLinks"
         >
-          <div className="transition ease-in-out duration-300  py-5 px-12 uppercase hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75 rounded-md mx-0">
+          <div className="px-12 py-5 mx-0 uppercase transition duration-300 ease-in-out rounded-md hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75">
             <Link id="home" to="/">
               Home
             </Link>
           </div>
 
-          <div className="transition ease-in-out duration-300  py-5 px-12 uppercase hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75 rounded-md mx-0">
+          <div className="px-12 py-5 mx-0 uppercase transition duration-300 ease-in-out rounded-md hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75">
             <Link id="projects" to="/projects">
               Projects
             </Link>
           </div>
 
-          <div className="transition ease-in-out duration-300  py-5 px-12 uppercase hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75 rounded-md mx-0">
+          <div className="px-12 py-5 mx-0 uppercase transition duration-300 ease-in-out rounded-md hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75">
             <Link id="aboutme" to="/aboutme">
               About
             </Link>
           </div>
-          <div className="transition ease-in-out duration-300  py-5 px-12 uppercase hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75 rounded-md mx-0">
+          <div className="px-12 py-5 mx-0 uppercase transition duration-300 ease-in-out rounded-md hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75">
             <Link id="linkedIn" to="">
               LinkedIn
             </Link>
           </div>
 
-          <div className="transition ease-in-out duration-300  py-5 px-12 uppercase hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75 rounded-md mx-0">
+          <div className="px-12 py-5 mx-0 uppercase transition duration-300 ease-in-out rounded-md hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75">
             <Link id="github" to="">
               Github
             </Link>
           </div>
 
-          <div className="transition ease-in-out duration-300  py-5 px-11 uppercase hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75 rounded-md mx-0">
+          <div className="py-5 mx-0 uppercase transition duration-300 ease-in-out rounded-md px-11 hover:font-semibold hover:bg-teal-600 hover:bg-opacity-75">
             <Link id="resume" to="/resumeDownload">
               Resume
             </Link>
@@ -80,11 +80,11 @@ export const TopNav = () => {
       </div>
 
       <div
-        className="font-semibold hidden md:flex py-2 px-4 order-1"
+        className="order-1 hidden px-4 py-2 font-semibold md:flex"
         id="socialLinks"
       >
         <span
-          className="  px-4 rounded-md py-2 mx-1 shadow-md hover:shadow-lg text-small hover:text-md hover:text-gray-900 hover:bg-white"
+          className="px-4 py-2 mx-1 rounded-md shadow-md hover:shadow-lg text-small hover:text-md hover:text-gray-900 hover:bg-white"
           id="navLink"
         >
           <Link id="github" to="/">
@@ -92,7 +92,7 @@ export const TopNav = () => {
           </Link>
         </span>
         <span
-          className="px-4 rounded-md py-2 mx-1 shadow-md hover:shadow-lg text-small hover:text-md hover:text-gray-900 hover:bg-white"
+          className="px-4 py-2 mx-1 rounded-md shadow-md hover:shadow-lg text-small hover:text-md hover:text-gray-900 hover:bg-white"
           id="navLink"
         >
           <Link id="linkedIn" to="/">
@@ -100,7 +100,7 @@ export const TopNav = () => {
           </Link>
         </span>
         <span
-          className="px-4 rounded-md py-2 mx-1 shadow-md hover:shadow-lg text-small hover:text-md hover:text-gray-900 hover:bg-white"
+          className="px-4 py-2 mx-1 rounded-md shadow-md hover:shadow-lg text-small hover:text-md hover:text-gray-900 hover:bg-white"
           id="navLink"
         >
           <Link id="resume" to="/">
@@ -110,12 +110,12 @@ export const TopNav = () => {
       </div>
 
       <div
-        className="hidden md:flex py-2 px-4 font-semibold order-2"
+        className="order-2 hidden px-4 py-2 font-semibold md:flex"
         id="navLinks"
       >
         <Link to="/">
           <span
-            className="px-4 rounded-md py-2 mx-1 shadow-md hover:shadow-lg hover:text-gray-900 xl:hover:txt-lg hover:text-md text-small hover:bg-white"
+            className="px-4 py-2 mx-1 rounded-md shadow-md hover:shadow-lg hover:text-gray-900 xl:hover:txt-lg hover:text-md text-small hover:bg-white"
             id="navLink"
           >
             Home
@@ -123,7 +123,7 @@ export const TopNav = () => {
         </Link>
         <Link to="/">
           <span
-            className="px-4 rounded-md py-2 mx-1 shadow-md hover:shadow-lg hover:text-gray-900 xl:hover:txt-lg hover:text-md text-small hover:bg-white"
+            className="px-4 py-2 mx-1 rounded-md shadow-md hover:shadow-lg hover:text-gray-900 xl:hover:txt-lg hover:text-md text-small hover:bg-white"
             id="navLink"
           >
             Projects
@@ -131,7 +131,7 @@ export const TopNav = () => {
         </Link>
         <Link to="/">
           <span
-            className="px-4 rounded-md py-2 mx-1 shadow-md hover:shadow-lg hover:text-gray-900 xl:hover:txt-lg hover:text-md text-small hover:bg-white"
+            className="px-4 py-2 mx-1 rounded-md shadow-md hover:shadow-lg hover:text-gray-900 xl:hover:txt-lg hover:text-md text-small hover:bg-white"
             id="navLink"
           >
             About Me

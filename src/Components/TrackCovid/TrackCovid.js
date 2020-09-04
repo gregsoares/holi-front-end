@@ -1,7 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Loader } from "../Loader/Loader";
-import { CovidContext } from "../../assets/js/store/covidContext";
 // import { Charter } from "../Charter/Charter";
 // APIs
 // https://disease.sh/v3/covid-19/countries
@@ -9,8 +8,79 @@ import { CovidContext } from "../../assets/js/store/covidContext";
 // TODO: Break into smaller components
 // TODO: export API functions to API file
 // TODO: useContext
-export const TrackCovid = (props) => {
-  const { countries, countrySelected, USData } = props;
+export const TrackCovid = () => {
+  const [countries, setCountries] = useState([]);
+  const [countrySelected, setCountrySelected] = useState(null);
+  const [USData, setUSData] = useState([]);
+
+  // const getDailyCovid = async () =>
+  //   await fetch("https://api.covidtracking.com/v1/us/daily.json")
+  //     .then((res) => res.json())
+  //     .catch((err) => console.debug(err));
+
+  const getUSData = async () => {
+    await fetch("https://api.covidtracking.com/v1/us/daily.json")
+      .then((res) => res.json())
+      .then((data) => {
+        const usData = data.map((day) => day);
+        setUSData(usData);
+      })
+      .catch((err) => console.debug(err));
+  }; // END getCountries()
+
+  const getCountries = async () => {
+    // grabs all country data and displays only the country's name on the list
+    // All data is saved to countries State.
+    await fetch("https://disease.sh/v3/covid-19/countries")
+      .then((res) => res.json())
+      .then((data) => {
+        const countries = data.map((country) => country);
+        setCountries(countries);
+      })
+      .catch((err) => console.debug(err));
+  }; // END getCountries()
+
+  const showCountryCards = (e) => {
+    let findCard = countries.map((country) =>
+      country.countryInfo.iso2 === e.target.value ? (
+        <div
+          className="fixed flex justify-center px-3 py-2"
+          key={country.countryInfo._id}
+        >
+          <div className="p-3 bg-white border border-black rounded shadow-md">
+            <div className="flex py-2 mx-auto text-center border-t-0 border-b-0">
+              <img
+                className="flex w-12 mx-2 border"
+                src={country.countryInfo.flag}
+                alt="Country's flag"
+              />
+              <p className="flex mx-auto text-xl text-center">
+                {`${country.country} (${country.countryInfo.iso2})`}
+              </p>
+            </div>
+            <p className="mx-2 text-xs text-gray-100">
+              {/* (Updated: {country.updated}) */}
+            </p>
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Total Cases: {toThousand(country.cases)}
+            </p>
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Recovered: {toThousand(country.recovered)}
+            </p>
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Deaths: {toThousand(country.deaths)}
+            </p>
+            <hr className="my-2" />
+            <p className="mx-2 my-1 leading-relaxed tracking-wide">
+              Population: {toThousand(country.population)}
+            </p>
+          </div>
+        </div>
+      ) : null
+    );
+    findCard = findCard.filter((el) => el !== null);
+    setCountrySelected(findCard);
+  }; //END showCountryCards()
 
   const toThousand = (num) => {
     return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "";
@@ -78,13 +148,6 @@ export const TrackCovid = (props) => {
   };
 
   // FIXME: reloading multiple times, might wanna implement useCallback
-  useEffect(() => {
-    console.debug(`useEffect Report:
-countries: ${countries}\n
-countrySelected: ${countrySelected}\n
-USData: ${USData}\n
-`);
-  }, [countrySelected]);
 
   const showUSCard = () => {
     const dataModel = USData.map((today) => ({
@@ -111,26 +174,26 @@ USData: ${USData}\n
       totalTestResultsIncrease: today.totalTestResultsIncrease,
       hash: today.hash,
     }));
-    console.log(`dataModel: ${dataModel[0].date}`);
+    console.log(`dataModel: ${dataModel[0].date.toString().split(1, 2)}`);
 
     return (
-      <div className="flex-inline text-xs text-center mx-2 px-2 border border-teal-500 py-3 rounded-md shadow">
+      <div className="px-2 py-3 mx-2 text-xs text-center border border-teal-500 rounded-md shadow flex-inline">
         Today: (USA)
         <div className="flex">
-          <div className="flex-flexcol border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Positive</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].positive)}
               </p>
             </div>
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Positive Increase</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].positiveIncrease)}
               </p>
             </div>
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Recovered</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].recovered)}
@@ -138,20 +201,20 @@ USData: ${USData}\n
             </div>
           </div>{" "}
           {/* END DataContaier 1 */}
-          <div className="flex-flexcol border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Negative</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].negative)}
               </p>
             </div>
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Negative Increase</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].negativeIncrease)}
               </p>
             </div>
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Deaths</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].death)}
@@ -159,20 +222,20 @@ USData: ${USData}\n
             </div>
           </div>{" "}
           {/* END DataContaier 2 */}
-          <div className="flex-flexcol border-teal-400 justify-between border m-1 px-2 shadow rounded-md">
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Total Test Results</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].totalTestResults)}
               </p>
             </div>
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Test Results Increase</p>
               <p className="text-sm text-black">
                 {toThousand(dataModel[0].totalTestResultsIncrease)}
               </p>
             </div>
-            <div className="flex-flexcol  mx-auto py-2 border-t-0 border-b-0 text-center">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
               <p className="font-semibold">Date:</p>
               <p className="text-sm text-black">{`${dataModel[0].date
                 .toString()
@@ -189,18 +252,18 @@ USData: ${USData}\n
     );
   }; // END cardData
 
-  const handleCountrySelect = async (e) => CovidContext.showCountryCards(e);
+  const handleCountrySelect = async (e) => showCountryCards(e);
 
   const countrySelector = () => {
     return (
       <form
-        className="text-center text-gray-700 px-2"
+        className="px-2 text-center text-gray-700"
         data-testid="TrackCovidContainer"
       >
-        <div className="border rounded border-teal-500 px-4 mb-2 py-2">
+        <div className="px-4 py-2 mb-2 border border-teal-500 rounded">
           Country List:{" "}
           <select
-            className="text-xs px-2 block mx-auto py-3"
+            className="block px-2 py-3 mx-auto text-xs"
             id="DropContainer "
             name="dropContainer"
             onChange={handleCountrySelect}
@@ -230,15 +293,18 @@ USData: ${USData}\n
     );
   }; //END countrySelector()
 
-  // FIXME: Provider not being used ?
+  useEffect(() => {
+    getCountries();
+    getUSData();
+  }, []);
   return USData !== undefined ? (
     <div className="">
       <div className="flex ">
         {USData.length > 0 ? showUSCard() : <Loader />}
         {USData.length > 0 ? countrySelector() : <Loader />}
       </div>
-      <div className="my-3 mx-0 px-2">
-        <div className="mx-auto max-w-xl">
+      <div className="px-2 mx-0 my-3">
+        <div className="max-w-xl mx-auto">
           {USData.length > 0 ? loadUSBarGraph() : <Loader />}
         </div>
       </div>

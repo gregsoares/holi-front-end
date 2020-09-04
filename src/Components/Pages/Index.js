@@ -1,18 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { TrackCovid } from "../TrackCovid/TrackCovid";
 import "../../assets/js/main";
-import { CovidContext } from "../../assets/js/store/covidContext";
 
 const Index = () => {
-  const { countries, countrySelected, USData } = useContext(CovidContext);
   return (
     <div
-      className="bg-gray-200 w-full p-0 m-0"
+      className="relative z-30 w-full p-0 m-0 bg-gray-400"
       data-testid="IndexPageContainer"
     >
-      <CovidContext.Provider value={(countries, countrySelected, USData)}>
+      <div className="min-h-screen py-2 bg-black bg-opacity-75 cover-fill absolute-center">
         <TrackCovid />
-      </CovidContext.Provider>
+      </div>
     </div>
   );
 };
