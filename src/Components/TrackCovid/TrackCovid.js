@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Loader } from "../Loader/Loader";
-// import { Charter } from "../Charter/Charter";
 // APIs
 // https://disease.sh/v3/covid-19/countries
 
@@ -29,7 +28,7 @@ export const TrackCovid = () => {
   }; // END getCountries()
 
   const getCountries = async () => {
-    // grabs all country data and displays only the country's name on the list
+    // Gets all country data and displays only the country's name on the list
     // All data is saved to countries State.
     await fetch("https://disease.sh/v3/covid-19/countries")
       .then((res) => res.json())
@@ -44,7 +43,7 @@ export const TrackCovid = () => {
     let findCard = countries.map((country) =>
       country.countryInfo.iso2 === e.target.value ? (
         <div
-          className="fixed flex justify-center px-3 py-2"
+          className="fixed flex justify-center px-3 py-2 text-gray-800"
           key={country.countryInfo._id}
         >
           <div className="p-3 bg-white border border-black rounded shadow-md">
@@ -174,70 +173,69 @@ export const TrackCovid = () => {
       totalTestResultsIncrease: today.totalTestResultsIncrease,
       hash: today.hash,
     }));
-    console.log(`dataModel: ${dataModel[0].date.toString().split(1, 2)}`);
 
     return (
-      <div className="px-2 py-3 mx-2 text-xs text-center border border-teal-500 rounded-md shadow flex-inline">
+      <div className="px-2 py-3 mx-2 text-xs text-center text-gray-500 border border-teal-500 rounded-md shadow flex-inline">
         Today: (USA)
         <div className="flex">
-          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow flex-flexcol">
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Positive</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].positive)}
               </p>
             </div>
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Positive Increase</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].positiveIncrease)}
               </p>
             </div>
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Recovered</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].recovered)}
               </p>
             </div>
           </div>{" "}
           {/* END DataContaier 1 */}
-          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow flex-flexcol">
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Negative</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].negative)}
               </p>
             </div>
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Negative Increase</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].negativeIncrease)}
               </p>
             </div>
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Deaths</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].death)}
               </p>
             </div>
           </div>{" "}
           {/* END DataContaier 2 */}
-          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow flex-flexcol">
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+          <div className="justify-between px-2 m-1 border border-teal-400 rounded-md shadow">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Total Test Results</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].totalTestResults)}
               </p>
             </div>
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Test Results Increase</p>
-              <p className="text-sm text-black">
+              <p className="text-sm text-gray-300">
                 {toThousand(dataModel[0].totalTestResultsIncrease)}
               </p>
             </div>
-            <div className="py-2 mx-auto text-center border-t-0 border-b-0 flex-flexcol">
+            <div className="py-2 mx-auto text-center border-t-0 border-b-0">
               <p className="font-semibold">Date:</p>
-              <p className="text-sm text-black">{`${dataModel[0].date
+              <p className="text-sm text-gray-300">{`${dataModel[0].date
                 .toString()
                 .substring(0, 4)}/${dataModel[0].date
                 .toString()
@@ -257,13 +255,13 @@ export const TrackCovid = () => {
   const countrySelector = () => {
     return (
       <form
-        className="px-2 text-center text-gray-700"
+        className="px-2 text-center text-gray-500"
         data-testid="TrackCovidContainer"
       >
         <div className="px-4 py-2 mb-2 border border-teal-500 rounded">
           Country List:{" "}
           <select
-            className="block px-2 py-3 mx-auto text-xs"
+            className="block px-2 py-3 mx-auto text-xs text-gray-800 bg-opacity-75 border border-gray-800"
             id="DropContainer "
             name="dropContainer"
             onChange={handleCountrySelect}
@@ -285,6 +283,16 @@ export const TrackCovid = () => {
                 : ""
               : ""}
           </select>
+        </div>
+        <div className="p-1 m-0">
+          {countrySelected && (
+            <button
+              className="px-3 py-2 text-white bg-opacity-75 border border-black"
+              onClick={() => setCountrySelected(null)}
+            >
+              Clear
+            </button>
+          )}
         </div>
         <div className="relative" id="countrySelectedContainer">
           {countrySelected ? countrySelected : "No selection made"}
@@ -309,7 +317,5 @@ export const TrackCovid = () => {
         </div>
       </div>
     </div>
-  ) : (
-    <div className="hidden"></div>
-  );
+  ) : null;
 };

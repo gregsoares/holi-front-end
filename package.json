@@ -24,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deployFirebase": "react-scripts build && firebase deploy --only hosting",
     "test": "react-scripts test",
     "jest": "npm testr -- --coverage --watch-all=false",
     "eject": "react-scripts eject",
