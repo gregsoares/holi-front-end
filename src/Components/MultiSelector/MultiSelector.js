@@ -3,15 +3,15 @@ import React from "react";
 export const MultiSelector = () => {
   return (
     <div>
-      <div className="w-screen h-screen bg-gray-300">
-        <div className="container flex items-center justify-center h-screen p-2 mx-auto md:p-0">
+      <div className="w-screen bg-gray-300">
+        <div className="container flex items-center justify-center p-2 mx-auto md:p-0">
           <div className="grid grid-cols-1 gap-6 p-6 bg-white border border-gray-300 rounded-lg shadow-lg">
             <div className="flex flex-col md:flex-row">
               <div className="">
                 <select className="p-2 border rounded">
                   <option>Round-trip</option>
                   <option>Missouri</option>
-                  <option>texas</option>
+                  <option>Texas</option>
                 </select>
               </div>
               <div className="pt-6 md:pt-0 md:pl-6">

@@ -1,6 +1,7 @@
 import React from "react";
 import { TopHero } from "../TopHero/TopHero";
 import { MultiSelector } from "../MultiSelector/MultiSelector";
+import { DataTable } from "../DataTable/DataTable";
 const Index = () => {
   return (
     <div
@@ -9,6 +10,7 @@ const Index = () => {
     >
       <TopHero />
       <MultiSelector />
+      <DataTable />
     </div>
   );
 };
