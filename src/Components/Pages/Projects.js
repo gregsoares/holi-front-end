@@ -6,7 +6,7 @@ import { Container } from "../Container/Container";
 const Projects = () => {
   return (
     <div
-      className="w-full p-0 m-0 bg-gray-200"
+      className="relative z-30 w-full p-0 m-0 bg-gray-200"
       data-testid="ProjectsPageContainer"
     >
       <div>

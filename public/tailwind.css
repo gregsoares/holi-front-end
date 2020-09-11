@@ -17755,32 +17755,12 @@ video {
   --transform-skew-y: -3deg;
 }
 
-.transition-none {
-  transition-property: none;
+.transition-height {
+  transition-property: height;
 }
 
-.transition-all {
-  transition-property: all;
-}
-
-.transition {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-}
-
-.transition-colors {
-  transition-property: background-color, border-color, color, fill, stroke;
-}
-
-.transition-opacity {
-  transition-property: opacity;
-}
-
-.transition-shadow {
-  transition-property: box-shadow;
-}
-
-.transition-transform {
-  transition-property: transform;
+.transition-spacing {
+  transition-property: margin, padding;
 }
 
 .ease-linear {
@@ -17868,15 +17848,15 @@ video {
 }
 
 .scale-2 {
-  transform: scale(14., 1.4);
+  transform: scale(14, 1.4);
 }
 
 .scale-3 {
-  transform: scale(16., 1.6);
+  transform: scale(16, 1.6);
 }
 
 .scale-4 {
-  transform: scale(18., 1.8);
+  transform: scale(18, 1.8);
 }
 
 .hover\:scale-1:hover {
@@ -17884,15 +17864,15 @@ video {
 }
 
 .hover\:scale-2:hover {
-  transform: scale(14., 1.4);
+  transform: scale(14, 1.4);
 }
 
 .hover\:scale-3:hover {
-  transform: scale(16., 1.6);
+  transform: scale(16, 1.6);
 }
 
 .hover\:scale-4:hover {
-  transform: scale(18., 1.8);
+  transform: scale(18, 1.8);
 }
 
 .focus\:scale-1:focus {
@@ -17900,15 +17880,15 @@ video {
 }
 
 .focus\:scale-2:focus {
-  transform: scale(14., 1.4);
+  transform: scale(14, 1.4);
 }
 
 .focus\:scale-3:focus {
-  transform: scale(16., 1.6);
+  transform: scale(16, 1.6);
 }
 
 .focus\:scale-4:focus {
-  transform: scale(18., 1.8);
+  transform: scale(18, 1.8);
 }
 
 @media (min-width: 640px) {
@@ -35077,32 +35057,12 @@ video {
     --transform-skew-y: -3deg;
   }
 
-  .sm\:transition-none {
-    transition-property: none;
+  .sm\:transition-height {
+    transition-property: height;
   }
 
-  .sm\:transition-all {
-    transition-property: all;
-  }
-
-  .sm\:transition {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-  }
-
-  .sm\:transition-colors {
-    transition-property: background-color, border-color, color, fill, stroke;
-  }
-
-  .sm\:transition-opacity {
-    transition-property: opacity;
-  }
-
-  .sm\:transition-shadow {
-    transition-property: box-shadow;
-  }
-
-  .sm\:transition-transform {
-    transition-property: transform;
+  .sm\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .sm\:ease-linear {
@@ -52352,32 +52312,12 @@ video {
     --transform-skew-y: -3deg;
   }
 
-  .md\:transition-none {
-    transition-property: none;
+  .md\:transition-height {
+    transition-property: height;
   }
 
-  .md\:transition-all {
-    transition-property: all;
-  }
-
-  .md\:transition {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-  }
-
-  .md\:transition-colors {
-    transition-property: background-color, border-color, color, fill, stroke;
-  }
-
-  .md\:transition-opacity {
-    transition-property: opacity;
-  }
-
-  .md\:transition-shadow {
-    transition-property: box-shadow;
-  }
-
-  .md\:transition-transform {
-    transition-property: transform;
+  .md\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .md\:ease-linear {
@@ -69627,32 +69567,12 @@ video {
     --transform-skew-y: -3deg;
   }
 
-  .lg\:transition-none {
-    transition-property: none;
+  .lg\:transition-height {
+    transition-property: height;
   }
 
-  .lg\:transition-all {
-    transition-property: all;
-  }
-
-  .lg\:transition {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-  }
-
-  .lg\:transition-colors {
-    transition-property: background-color, border-color, color, fill, stroke;
-  }
-
-  .lg\:transition-opacity {
-    transition-property: opacity;
-  }
-
-  .lg\:transition-shadow {
-    transition-property: box-shadow;
-  }
-
-  .lg\:transition-transform {
-    transition-property: transform;
+  .lg\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .lg\:ease-linear {
@@ -86902,32 +86822,12 @@ video {
     --transform-skew-y: -3deg;
   }
 
-  .xl\:transition-none {
-    transition-property: none;
+  .xl\:transition-height {
+    transition-property: height;
   }
 
-  .xl\:transition-all {
-    transition-property: all;
-  }
-
-  .xl\:transition {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-  }
-
-  .xl\:transition-colors {
-    transition-property: background-color, border-color, color, fill, stroke;
-  }
-
-  .xl\:transition-opacity {
-    transition-property: opacity;
-  }
-
-  .xl\:transition-shadow {
-    transition-property: box-shadow;
-  }
-
-  .xl\:transition-transform {
-    transition-property: transform;
+  .xl\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .xl\:ease-linear {
