@@ -1,4 +1,4 @@
-import React from "react";
-import { BlogTemp } from "../BlogTemp/BlogTemp";
+// import React from "react";
+// import { BlogTemp } from "../BlogTemp/BlogTemp";
 
-export const Blog = () => <BlogTemp />;
+// export const Blog = () => <BlogTemp />;
